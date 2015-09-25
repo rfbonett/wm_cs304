@@ -1,0 +1,18 @@
+/*                                                                              
+ * multFiveEighths - multiplies by 5/8 rounding toward 0.                       
+ *   Should exactly duplicate effect of C expression (x*5/8),                   
+ *   including overflow behavior.                                               
+ *   Examples: multFiveEighths(77) = 48                                         
+ *             multFiveEighths(-22) = -13                                       
+ *             multFiveEighths(1073741824) = 13421728 (overflow)                
+ *   Legal ops: ! ~ & ^ | + << >>                                               
+ *   Max ops: 12                                                                
+ *   Rating: 3                                                                  
+ */
+int multFiveEighths(int x) {
+  /* x << 2 + x equates to x*5. x >> 3 similarly equates to x/8. Since we       
+     round towards zero, if the number is negative we must add 7 (0b111)   
+     prior to dividing by eight; this increases the final value by one if       
+     it has a remainder.*/
+  return ((x << 2) + x + ((x >> 31) & 7)) >> 3;
+}
